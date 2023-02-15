@@ -18,11 +18,7 @@ jobs:
         run: echo "::set-output name=PROJECT::$(cat project-to-build)"
       - name: Clone project
         run: git clone --depth=1 ${{ steps.get-project.outputs.PROJECT }} project
-      - name: ya s
-        working-directory: Box
-        run: |
-          #zip -q -x ".git/*" -x  ".github/*" -r source-$*.zip .
-          tar -cJf source-${{ env.commitS }}.tar.xz --exclude=.git --exclude=.github *
+    
     
       - name: Build the app
         working-directory: ./project
