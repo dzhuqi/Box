@@ -7,33 +7,32 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: 签出代码
+      - name: Checkout the code
         uses: actions/checkout@v2
       - name: Set up JDK
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
           id: get-project
-      - name: 获取项目
+      - name: Get project name
         run: echo "::set-output name=PROJECT::$(cat project-to-build)"
-      - name: 克隆项目
+      - name: Clone project
         run: git clone --depth=1 ${{ steps.get-project.outputs.PROJECT }} project
-      - name: 压缩源代码
+      - name: ya s
         
         working-directory: Box
         run: |
           #zip -q -x ".git/*" -x  ".github/*" -r source-${{ env.commitS }}.zip .
           tar -cJf source-${{ env.commitS }}.tar.xz --exclude=.git --exclude=.github *
-      - name: 测试选项
-        
+      - name: cs
         working-directory: Box
-      - name: 构建应用程序
+      - name: Build the app
         working-directory: ./project
         run: |
           if [ ! -f "gradlew" ]; then gradle wrapper; fi
           chmod +x gradlew
           ./gradlew assembleDebug --stacktrace
-      - name: 上传APK
+      - name: Upload APK
         uses: actions/upload-artifact@v2
         with:
           name: TVbox
