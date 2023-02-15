@@ -18,6 +18,15 @@ jobs:
         run: echo "::set-output name=PROJECT::$(cat project-to-build)"
       - name: 克隆项目
         run: git clone --depth=1 ${{ steps.get-project.outputs.PROJECT }} project
+      - name: 压缩源代码
+        
+        working-directory: Box
+        run: |
+          #zip -q -x ".git/*" -x  ".github/*" -r source-${{ env.commitS }}.zip .
+          tar -cJf source-${{ env.commitS }}.tar.xz --exclude=.git --exclude=.github *
+      - name: 测试选项
+        
+        working-directory: Box
       - name: 构建应用程序
         working-directory: ./project
         run: |
